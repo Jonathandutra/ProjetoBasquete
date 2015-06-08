@@ -2,6 +2,7 @@ package projetobasquete;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 import projetobasquete.arquivo.ManipularArquivo;
 
 public class ProjetoBasquete {
@@ -13,6 +14,7 @@ public class ProjetoBasquete {
         String jogador = "";
         int op = 1000;
 do{
+   
         System.out.println("====================| Menu Projeto Basquete |====================");
         System.out.println("\t 1-Cadastrar \t\t 2-Listar Jogadores");
         System.out.println("\t 3-Excluir \t\t 4- Atualizar");
@@ -32,9 +34,9 @@ do{
                 aquivo.gravarArquivo(jogador);
                 }else
                 {
-                    System.out.println("Digite um Nome");
-                }
+                  JOptionPane.showMessageDialog(null,"Nome do Jogador nao pode\n ficar em branco");               }
                 break;
+                
             case 2:
                 ArrayList<String> lista = new ArrayList();
                 lista = aquivo.lerArquivoArray();
@@ -43,10 +45,11 @@ do{
                 }
                 leitor.nextLine();            
             break;
+                
             case 3:
 
             default:
-                System.out.println("Opcao invalida\n \t Digite: Q - Sair D C- Voltar ao Menu");
+                System.out.println("Opcao invalida\n \t Digite: Q - Sair  e C- Voltar ao Menu");
 
                 if (leitor.nextLine().toUpperCase().charAt(0) == 'Q') {
                     op = 5;

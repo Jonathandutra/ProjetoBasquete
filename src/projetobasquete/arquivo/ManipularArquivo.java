@@ -15,42 +15,48 @@ import javax.swing.JOptionPane;
 
 public class ManipularArquivo {
 
-    File jogador = new File("jogador.txt");
-
+    
+// instanciando e criando um arquivo , cria um arquivo com o nome jogador.txt no diretorio raiz
+ File jogador = new File("jogador.txt");
+// metodo usado para gravar Texto no arquivo 
     public void gravarArquivo(String tex) {
 
         try {
+            // verifica a se o arquivo existe caso nao exista criar um aquivo 
             if (!jogador.exists()) {
                 jogador.createNewFile();
             }
-
+// recebe todo conteudo do arquivo que sera posteriormente gravado
+            
             String conteudo = lerArquivo();
-
+// rebebe o conteudo do arquivo e acresenta o conteudo passado no contruturo do metodo 
             String texto = conteudo + tex;
-
+// Instancia classe rescponsavel por gravar no arquivo e diz em qual arquivo sera gravado
             PrintWriter guardar = new PrintWriter(jogador);
-
+// grava o conteudo do texto no arquivo
             guardar.println(texto);
-
+// fecha o arquivo 
             guardar.close();
-
+// exibe uma confirmacao que o arquivo foi criado 
             JOptionPane.showMessageDialog(null, "Cadasro Realizado com Sucesso");
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
+// Metodo usado para ler o conteudo de um arquivo 
     public String lerArquivo() {
-
+// Inicia uma variavel que irar retornar o conteudo do arquivo 
         String texto = "";
 
         try {
+//Instancia um objeto para ler o conteudo de um arquivo , esatbelece \\ como lititado no lugar do \n            
             Scanner leitor = new Scanner(new FileReader(jogador)).useDelimiter("\\|");
+// Enquanto houver conteudo no leitor faca            
             while (leitor.hasNext()) {
                 texto += leitor.next();
             }
-            return texto;
+      
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         } finally {
