@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -16,14 +17,23 @@ public class ManipularArquivo {
 
     File jogador = new File("jogador.txt");
 
-    public void gravarArquivo(String texto) {
+    public void gravarArquivo(String tex) {
+          
         try {
-
-            PrintWriter cadastroJogador = new PrintWriter(jogador);
-      
-            cadastroJogador.printf(texto +" \n" );
+               if (!jogador.exists())
+        {
+            jogador.createNewFile();
+        }
             
-            cadastroJogador.close();
+            String conteudo = lerArquivo();
+            
+            String texto = "<tr><td width=250 align='center'>"+tex +"</td> </tr>"+ conteudo;
+            
+            PrintWriter guardar = new PrintWriter(jogador);
+            
+            guardar.println(texto);
+                       
+            guardar.close();
 
             JOptionPane.showMessageDialog(null, "Cadasro Realizado com Sucesso");
 
@@ -33,29 +43,22 @@ public class ManipularArquivo {
     }
 
     public String lerArquivo() {
-        String listadeJogadores=" ";
-        FileReader LerAquivo;
-        String linha="";
-        BufferedReader temporario = null;
        
+        String texto = "";
+        
         try {
-         LerAquivo = new FileReader(jogador);
-               
-          temporario= new BufferedReader(LerAquivo);
-
-             while((linha = temporario.readLine())!= null) {
-               
-              listadeJogadores += linha;
+            Scanner leitor = new Scanner(new FileReader(jogador)).useDelimiter("\\|");
+            while(leitor.hasNext())
+            {
+                texto += leitor.next();
             }
-
-            LerAquivo.close();
-            temporario.close();
+            return texto;
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(ManipularArquivo.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            return listadeJogadores;
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }finally
+        {
+            return  texto;
         }
-
     }
 
 }
