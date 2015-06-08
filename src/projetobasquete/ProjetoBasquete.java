@@ -24,16 +24,10 @@ public class ProjetoBasquete
         ArrayList <String> lista = new ArrayList();
         
         lista= aquivo.lerArquivoArray();
-        int i =0;
         
-        for(String texto:lista)
+        for(int i=0;i < lista.size();i++)
         {
-           
-            System.out.println( i + "-" + texto);
-            i=i+1; 
+             System.out.println( i +"-"+lista.get(i));
         }
-        
-        
     }
-    
 }
